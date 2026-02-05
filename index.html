@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hey Mohit 💕</title>
+
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      background: linear-gradient(135deg, #ffe0ec, #ffffff);
+      font-family: "Segoe UI", sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    /* Floral side decorations */
+    body::before, body::after {
+      content: "🌸 🌷 🌹 🌼 🌺";
+      position: absolute;
+      font-size: 28px;
+      opacity: 0.25;
+      writing-mode: vertical-rl;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    body::before {
+      left: 8px;
+    }
+
+    body::after {
+      right: 8px;
+    }
+
+    .card {
+      background: white;
+      padding: 40px 30px;
+      border-radius: 20px;
+      text-align: center;
+      box-shadow: 0 15px 40px rgba(255, 105, 180, 0.25);
+      max-width: 90%;
+      width: 360px;
+      z-index: 5;
+      animation: fadeIn 1s ease;
+    }
+
+    h1 {
+      color: #ff4d88;
+      margin-bottom: 15px;
+    }
+
+    p {
+      font-size: 18px;
+      color: #555;
+      margin-bottom: 30px;
+    }
+
+    .btn-container {
+      position: relative;
+      height: 120px;
+    }
+
+    button {
+      padding: 12px 26px;
+      font-size: 18px;
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      position: absolute;
+      transition: 0.2s ease;
+    }
+
+    #yesBtn {
+      background: #ff4d88;
+      color: white;
+      left: 35%;
+      top: 50px;
+      box-shadow: 0 4px 12px rgba(255, 77, 136, 0.5);
+    }
+
+    #noBtn {
+      background: #ddd;
+      color: #444;
+      left: 55%;
+      top: 50px;
+    }
+
+    #yesBtn:hover {
+      transform: scale(1.1);
+    }
+
+    .result {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      animation: pop 0.6s ease;
+    }
+
+    .result img {
+      width: 260px;
+      border-radius: 15px;
+      margin-top: 15px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+
+    .final-text {
+      font-size: 18px;
+      margin-top: 10px;
+      color: #ff4d88;
+      font-weight: 600;
+    }
+
+    @keyframes pop {
+      from { transform: scale(0.7); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Floating hearts */
+    .heart {
+      position: absolute;
+      bottom: -20px;
+      font-size: 18px;
+      color: #ff4d88;
+      animation: floatUp 6s linear infinite;
+      opacity: 0.6;
+      z-index: 1;
+    }
+
+    @keyframes floatUp {
+      from {
+        transform: translateY(0) scale(1);
+        opacity: 0.8;
+      }
+      to {
+        transform: translateY(-110vh) scale(1.5);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="card" id="mainCard">
+    <h1>Hey Mohit, will you be my Valentine? 💕</h1>
+
+    <div class="btn-container">
+      <button id="yesBtn">Yes 💖</button>
+      <button id="noBtn">No 😜</button>
+    </div>
+  </div>
+
+  <div class="card result" id="resultCard">
+    <h1>Take My Hand ❤️</h1>
+    <img src="img.jpeg" alt="Good choice">
+  </div>
+
+  <script>
+    const noBtn = document.getElementById("noBtn");
+    const yesBtn = document.getElementById("yesBtn");
+    const mainCard = document.getElementById("mainCard");
+    const resultCard = document.getElementById("resultCard");
+
+    const music = new Audio("song.mp3");
+    music.loop = true;
+
+    noBtn.addEventListener("mouseover", () => {
+      const container = document.querySelector(".btn-container");
+      const maxX = container.clientWidth - noBtn.offsetWidth;
+      const maxY = container.clientHeight - noBtn.offsetHeight;
+
+      noBtn.style.left = Math.random() * maxX + "px";
+      noBtn.style.top = Math.random() * maxY + "px";
+    });
+
+    yesBtn.addEventListener("click", () => {
+      mainCard.style.display = "none";
+      resultCard.style.display = "flex";
+      music.play();
+      startHearts();
+    });
+
+    function startHearts() {
+      setInterval(() => {
+        const heart = document.createElement("div");
+        heart.classList.add("heart");
+        heart.innerHTML = "❤️";
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.animationDuration = (Math.random() * 3 + 4) + "s";
+        document.body.appendChild(heart);
+
+        setTimeout(() => {
+          heart.remove();
+        }, 7000);
+      }, 300);
+    }
+  </script>
+
+</body>
+</html>
